@@ -75,7 +75,7 @@ const TeachersSingle = () => {
       ></div>
     </div>
 
-    <button className="mt-4 w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition">
+    <button className="mt-4 w-full bg-black text-white py-2 rounded-lg hover:bg-gray-900 transition">
       Edit Profile
     </button>
   </div>
