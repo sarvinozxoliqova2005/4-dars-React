@@ -53,24 +53,25 @@ const Teachers = () => {
             <span className='text-gray-700'>{el.Rating}</span>
           </div>
 
-          <div className='flex flex-col gap-1 mt-8 text-sm text-gray-600'>
-            <a href={el.Phone} className='hover:text-blue-500 flex items-center gap-2'>
-              <img className='w-5' src="https://www.iconpacks.net/icons/1/free-phone-icon-519-thumb.png" alt="" />
-              {el.Phone}
-            </a>
-            <a href={el.Email} className='hover:text-blue-500 flex items-center gap-2 mt-2 pr-5 break-all'>
-              <img className='w-5' src="https://www.iconpacks.net/icons/2/free-mail-icon-2552-thumb.png" alt="" />
-              {el.Email}
-            </a>
-            <a href={el.Telegram} className='hover:text-blue-500 flex items-center gap-2 mt-2'>
-              <img className='w-7' src="https://images.icon-icons.com/2201/PNG/512/telegram_logo_circle_icon_134012.png" alt="" />
-              @{el.Telegram}
-            </a>
-            <a href={el.Linkedin} className='hover:text-blue-500 flex items-center'>
-              <img className='w-10' src="https://img.freepik.com/free-psd/social-media-logo-design_23-2151299455.jpg" alt="" />
-              LinkedIn
-            </a>
-          </div>
+     <div className='flex flex-col gap-1 mt-8 text-sm text-gray-600'>
+       <span className='hover:text-blue-500 flex items-center gap-2 cursor-pointer'>
+         <img className='w-5' src="https://www.iconpacks.net/icons/1/free-phone-icon-519-thumb.png" alt="" />
+        {el.Phone}
+      </span>
+     <span className='hover:text-blue-500 flex items-center gap-2 mt-2 pr-5 break-all cursor-pointer'>
+      <img className='w-5' src="https://www.iconpacks.net/icons/2/free-mail-icon-2552-thumb.png" alt="" />
+      {el.Email}
+   </span>
+  <span className='hover:text-blue-500 flex items-center gap-2 mt-2 cursor-pointer'>
+    <img className='w-7' src="https://images.icon-icons.com/2201/PNG/512/telegram_logo_circle_icon_134012.png" alt="" />
+    @{el.Telegram}
+  </span>
+  <span className='hover:text-blue-500 flex items-center cursor-pointer'>
+    <img className='w-10' src="https://img.freepik.com/free-psd/social-media-logo-design_23-2151299455.jpg" alt="" />
+    LinkedIn
+  </span>
+</div>
+
 
           <div className='flex justify-center gap-4 mt-4 opacity-0 translate-y-4 
             group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300'
