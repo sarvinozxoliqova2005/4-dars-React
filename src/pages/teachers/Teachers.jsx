@@ -2,11 +2,26 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import TeacherCard from '../../components/TeacherCard';
 
 const Teachers = () => {
   const [teachers, setTeachers] = useState([]);
   const [loading, setLoading] = useState(true); 
   const [search , setSearch] = useState("");
+  const [openModal, setOpenModal] = useState(false);
+  const [avatar , setAvatar] = useState ("");
+  const [FirstName , setFirstName] = useState (" ");
+  const [LastName , setLastName] = useState ("");
+  const [Profession , setProfession] = useState ("");
+  const [Age , setAge] = useState ("");
+  const [Rating , setRating] = useState ("");
+  const [Phone , setPhone] = useState ("");
+  const [Email , setEmail] = useState ("");
+  const [Telegram , setTelegram] = useState ("");
+  const [Linkedin , setLinkedin] = useState ("");
+  const [selected , setSelected] = useState (null);
+ 
+
 
   useEffect(() => {
     async function getAllTeachers() {
@@ -22,12 +37,100 @@ const Teachers = () => {
     getAllTeachers();
   }, [search]);
 
-  async function deleteTeachers(id) {
+ 
+async function deleteTeachers(id) {
   try {
     await axios.delete(
       `https://6921d8fe512fb4140be18e4b.mockapi.io/Teachers/${id}`
     );
+    setTeachers(prev => prev.filter(t => t.id !== id));
+
     toast.success("Teacher deleted successfully!");
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const resetForm = () => {
+  setSelected(null);
+  setAvatar("");
+  setFirstName("");
+  setLastName("");
+  setProfession("");
+  setAge("");
+  setRating("");
+  setPhone("");
+  setEmail("");
+  setTelegram("");
+  setLinkedin("");
+};
+
+async function addTeacher(e) {
+  e.preventDefault();
+
+  const newTeacher = {
+    avatar,
+    FirstName,
+    LastName,
+    Profession,
+    Age,
+    Rating,
+    Phone,
+    Email,
+    Telegram,
+    Linkedin,
+  };
+
+  try {
+    let res;
+
+    if (selected) {
+      res = await axios.put(
+        `https://6921d8fe512fb4140be18e4b.mockapi.io/Teachers/${selected.id}`,
+        newTeacher
+      );
+
+      setTeachers(prev =>
+        prev.map(t =>
+          t.id === selected.id ? res.data : t
+        )
+      );
+
+      toast.success("Teacher updated successfully");
+    } else {
+      res = await axios.post(
+        "https://6921d8fe512fb4140be18e4b.mockapi.io/Teachers",
+        newTeacher
+      );
+
+      setTeachers(prev => [...prev, res.data]);
+
+      toast.success("Teacher added successfully");
+    }
+
+    resetForm();    
+    setOpenModal(false);  
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function edit(id) {
+  try {
+    let res = await axios.get(`https://6921d8fe512fb4140be18e4b.mockapi.io/Teachers/${id}`);
+    setSelected(res.data);    
+    setAvatar(res.data.avatar);
+    setFirstName(res.data.FirstName);
+    setLastName(res.data.LastName);
+    setProfession(res.data.Profession);
+    setAge(res.data.Age);
+    setRating(res.data.Rating);
+    setPhone(res.data.Phone);
+    setEmail(res.data.Email);
+    setTelegram(res.data.Telegram);
+    setLinkedin(res.data.Linkedin);
+
+    setOpenModal(true);         
   } catch (error) {
     console.log(error);
   }
@@ -51,7 +154,8 @@ const Teachers = () => {
 
   return (
     <div>
-      <form onChange={(e) => setSearch(e.target.value)} className="max-w-md">   
+      <div className='flex items-center justify-between'>
+        <form onChange={(e) => setSearch(e.target.value)} className="max-w-[400px] w-full ml-5">   
         <label htmlFor="search" className="block mb-2.5 text-sm font-medium text-heading sr-only">Search</label>
         <div className="relative">
           <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -59,66 +163,155 @@ const Teachers = () => {
               <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
             </svg>
           </div>
-          <input type="search" id="search" className="block w-full p-3 ps-9 rounded-lg bg-neutral-secondary-medium font-bold border-2 border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body" placeholder="Search" required />
+          <input type="search" id="search" className="block w-full p-3 ps-9 rounded-lg bg-neutral-secondary-medium font-bold border-2 border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body" placeholder="Search Teachers..." required />
         </div>
       </form>
+
+<button 
+    onClick={() => {setOpenModal(true) , resetForm()}} 
+    className='bg-blue-500 text-white text-[20px] max-w-[200px] w-full h-[50px] cursor-pointer px-3 rounded-xl font-bold mr-5'
+  >
+    + Add Teachers
+  </button>
+
+  {
+    openModal ?    
+    <div onClick={()=> {
+    setOpenModal(false) , 
+    resetForm(),
+    setSelected(null) ,  
+    setAvatar("");
+    setFirstName("");
+    setLastName("");
+    setProfession("");
+    setAge("");
+    setRating("");
+    setPhone("");
+    setEmail("");
+    setTelegram("");
+    setLinkedin("");
+    }} className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-md bg-black/80">
+      <div 
+        className="bg-white rounded-xl w-full max-w-[600px] p-6 relative"
+        onClick={(e) => e.stopPropagation()} 
+      >
+        <h2 className="text-xl text-[blue] font-bold text-center py-4">{selected ? "Add Edit" : " Add Teachers"}</h2>
+
+        <form onSubmit={addTeacher} className="space-y-4">
+          <input
+          value={avatar}
+          onChange={(e) => setAvatar (e.target.value)}
+            required
+            type="url"
+            placeholder="Avatar"
+            className="block w-full p-3 rounded-lg bg-neutral-secondary-medium font-bold border-2 border-default-medium text-heading text-md focus:ring-brand focus:border-brand shadow-xl"
+          />
+          <div className='flex items-center gap-3'>
+            <input
+            value={FirstName}
+              onChange={(e) => setFirstName (e.target.value)}
+              required
+              type="text"
+              placeholder="First Name"
+              className="block w-full p-3 rounded-lg bg-neutral-secondary-medium font-bold border-2 border-default-medium text-heading text-md focus:ring-brand focus:border-brand shadow-xl"
+            />
+            <input
+            value={LastName}
+              onChange={(e) => setLastName (e.target.value)}
+              required
+              type="text"
+              placeholder="Last Name"
+              className="block w-full p-3 rounded-lg bg-neutral-secondary-medium font-bold border-2 border-default-medium text-heading text-md focus:ring-brand focus:border-brand shadow-xl"
+            />
+          </div>
+          <input
+          value={Profession}
+            onChange={(e) => setProfession(e.target.value)}
+            required
+            type="text"
+            placeholder="Profession"
+            className="block w-full p-3 rounded-lg bg-neutral-secondary-medium font-bold border-2 border-default-medium text-heading text-md focus:ring-brand focus:border-brand shadow-xl"
+          />
+          <input
+          value={Age}
+          onChange={(e) => setAge(e.target.value)}
+            required
+            type="number"
+            placeholder="Age"
+            className="block w-full p-3 rounded-lg bg-neutral-secondary-medium font-bold border-2 border-default-medium text-heading text-md focus:ring-brand focus:border-brand shadow-xl"
+          />
+          <input
+          value={Rating}
+          onChange={(e) => setRating (e.target.value)}
+            required
+            type="number"
+            placeholder="Rating"
+            className="block w-full p-3 rounded-lg bg-neutral-secondary-medium font-bold border-2 border-default-medium text-heading text-md focus:ring-brand focus:border-brand shadow-xl"
+          />
+          <div className='flex items-center gap-3'>
+            <input
+            value={Phone}
+            onChange={(e) => setPhone(e.target.value)}
+              required
+              type="number"
+              placeholder="Phone number"
+              className="block w-full p-3 rounded-lg bg-neutral-secondary-medium font-bold border-2 border-default-medium text-heading text-md focus:ring-brand focus:border-brand shadow-xl"
+            />
+            <input
+            value={Email}
+            onChange={(e) => setEmail(e.target.value)}
+              required
+              type="email"
+              placeholder="Email"
+              className="block w-full p-3 rounded-lg bg-neutral-secondary-medium font-bold border-2 border-default-medium text-heading text-md focus:ring-brand focus:border-brand shadow-xl"
+            />
+          </div>
+          <div className='flex items-center gap-3'>
+            <input
+            value={Telegram}
+            onChange={(e) => setTelegram(e.target.value)}
+              required
+              type="telegram"
+              placeholder="Telegram"
+              className="block w-full p-3 rounded-lg bg-neutral-secondary-medium font-bold border-2 border-default-medium text-heading text-md focus:ring-brand focus:border-brand shadow-xl"
+            />
+            <input
+            value={Linkedin}
+            onChange={(e) => setLinkedin(e.target.value)}
+              required
+              type="text"
+              placeholder="Linkedin"
+              className="block w-full p-3 rounded-lg bg-neutral-secondary-medium font-bold border-2 border-default-medium text-heading text-md focus:ring-brand focus:border-brand shadow-xl"
+            />
+          </div>
+
+          <div className="flex justify-end gap-3 pt-3">
+            <button
+              type="button"
+              onClick={() => {setOpenModal(false) , resetForm()}}
+              className="px-4 py-2 border-2 font-bold text-[red] rounded-xl cursor-pointer"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 bg-blue-500 text-white rounded-xl font-bold max-w-[100px] w-full cursor-pointer"
+            >
+              {selected ? "Edit" : " + Add"}
+            </button>
+          </div>
+        </form>
+      </div>
+</div> : ""
+  }
+    </div>
 
     <div className='grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-5 p-5 container mx-auto'>
   
     {filteredTeachers.map((el) => (
-      <div key={el.id} className='max-w-[400px] w-full rounded-lg border-3 border-[white] shadow p-5 group'>
-        <Link to={`/teachers/${el.id}`}>
-          <img className='w-28 h-28 mx-auto object-cover rounded-full' src={el.avatar} alt="" />
-          <h1 className='text-center mt-3 font-semibold text-lg'>{el.FirstName} {el.LastName}</h1>
-          <p className='text-center text-sm text-gray-500 mt-1'>{el.Profession}</p>
+  <TeacherCard key={el.id} {...el} edit={edit} setSelected={setSelected} setOpenModal={setOpenModal} deleteTeachers={deleteTeachers} />
+))}
 
-          <div className='flex justify-center gap-4 mt-2 text-sm text-gray-600'>
-            <span><strong>{el.Age} Age</strong></span>
-          </div>
-
-          <div className='flex justify-center items-center mt-2'>
-            <span className='text-yellow-400 mr-1'>★</span>
-            <span className='text-gray-700'>{el.Rating}</span>
-          </div>
-
-          <div className='flex flex-col gap-1 mt-8 text-sm text-gray-600'>
-            <span className='hover:text-blue-500 flex items-center gap-2 cursor-pointer'>
-              <img className='w-5' src="https://www.iconpacks.net/icons/1/free-phone-icon-519-thumb.png" alt="" />
-              {el.Phone}
-            </span>
-            <span className='hover:text-blue-500 flex items-center gap-2 mt-2 pr-5 break-all cursor-pointer'>
-              <img className='w-5' src="https://www.iconpacks.net/icons/2/free-mail-icon-2552-thumb.png" alt="" />
-              {el.Email}
-            </span>
-            <span className='hover:text-blue-500 flex items-center gap-2 mt-2 cursor-pointer'>
-              <img className='w-7' src="https://images.icon-icons.com/2201/PNG/512/telegram_logo_circle_icon_134012.png" alt="" />
-              @{el.Telegram}
-            </span>
-            <span className='hover:text-blue-500 flex items-center cursor-pointer'>
-              <img className='w-10' src="https://img.freepik.com/free-psd/social-media-logo-design_23-2151299455.jpg" alt="" />
-              LinkedIn
-            </span>
-          </div>
-        </Link>
-
-        <div className="flex justify-center gap-4 mt-4 opacity-0 translate-y-4
-                         group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-           <Link to={`/teachers/${el.id}`} className='text-blue-600 cursor-pointer border border-blue-500 rounded-md px-3'>
-             Edit
-           </Link>
-           <button
-             onClick={(e) => {
-               e.stopPropagation();
-               deleteTeachers(el.id);
-             }}
-             className="text-red-600 border border-red-500 cursor-pointer rounded-md px-3"
-           >
-             Delete
-           </button>
-         </div>
-       </div>
-    ))
-  }
 </div>
 
     </div>
