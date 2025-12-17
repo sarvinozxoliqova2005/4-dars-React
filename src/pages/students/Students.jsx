@@ -12,7 +12,6 @@ const Students = () => {
   const [avatar, setAvatar] = useState("");
   const [FirstName, setFirstName] = useState("");
   const [LastName, setLastName] = useState("");
-  const [Profession, setProfession] = useState("");
   const [Age, setAge] = useState("");
   const [Rating, setRating] = useState("");
   const [Phone, setPhone] = useState("");
@@ -57,7 +56,6 @@ const Students = () => {
     setAvatar("");
     setFirstName("");
     setLastName("");
-    setProfession("");
     setAge("");
     setRating("");
     setPhone("");
@@ -73,7 +71,6 @@ const Students = () => {
       avatar,
       FirstName,
       LastName,
-      Profession,
       Age,
       Rating,
       Phone,
@@ -106,7 +103,6 @@ const Students = () => {
       setAvatar(res.data.avatar);
       setFirstName(res.data.FirstName);
       setLastName(res.data.LastName);
-      setProfession(res.data.Profession);
       setAge(res.data.Age);
       setRating(res.data.Rating);
       setPhone(res.data.Phone);
@@ -165,7 +161,6 @@ students.filter(s => s.Age <= 18);
                 <input value={FirstName} onChange={(e) => setFirstName(e.target.value)} required type="text" placeholder="First Name" className="block w-full p-3 rounded-lg bg-neutral-secondary-medium font-bold border-2 border-default-medium text-heading text-md focus:ring-brand focus:border-brand shadow-xl" />
                 <input value={LastName} onChange={(e) => setLastName(e.target.value)} required type="text" placeholder="Last Name" className="block w-full p-3 rounded-lg bg-neutral-secondary-medium font-bold border-2 border-default-medium text-heading text-md focus:ring-brand focus:border-brand shadow-xl" />
               </div>
-              <input value={Profession} onChange={(e) => setProfession(e.target.value)} required type="text" placeholder="Profession" className="block w-full p-3 rounded-lg bg-neutral-secondary-medium font-bold border-2 border-default-medium text-heading text-md focus:ring-brand focus:border-brand shadow-xl" />
               <input value={Age} onChange={(e) => setAge(e.target.value)} required type="number" placeholder="Age" className="block w-full p-3 rounded-lg bg-neutral-secondary-medium font-bold border-2 border-default-medium text-heading text-md focus:ring-brand focus:border-brand shadow-xl" />
               <input value={Rating} onChange={(e) => setRating(e.target.value)} required type="number" placeholder="Rating" className="block w-full p-3 rounded-lg bg-neutral-secondary-medium font-bold border-2 border-default-medium text-heading text-md focus:ring-brand focus:border-brand shadow-xl" />
               <div className='flex items-center gap-3'>
@@ -197,7 +192,6 @@ students.filter(s => s.Age <= 18);
             <Link to={`/students/${el.id}`}>
               <img className="w-28 h-28 mx-auto object-cover rounded-full" src={el.avatar} alt="" />
               <h1 className="text-center mt-3 font-semibold text-lg">{el.FirstName} {el.LastName}</h1>
-              <p className="text-center text-sm text-gray-500 mt-1">{el.Profession}</p>
               <div className="flex justify-center gap-4 mt-2 text-sm text-gray-600"><span><strong>{el.Age} Age</strong></span></div>
               <div className="flex items-center gap-1 mt-2"><span className="text-yellow-500">⭐</span><span className="font-semibold">{el.Rating || 0}</span></div>
               <div className="w-full bg-gray-300 rounded-full h-2 mt-2"><div className="h-2 bg-black rounded-full" style={{ width: `${el.Rating}%` }}></div></div>

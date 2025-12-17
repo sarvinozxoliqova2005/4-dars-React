@@ -37,7 +37,6 @@ const StudentsSingle = () => {
 
   return (
     <>
-      {/* BACK */}
       <div className="flex items-center gap-2 px-4 pt-4">
         <img className="w-5" src="https://svgx.ru/svg/2423347.svg" alt="" />
         <Link to="/students" className="hover:underline text-sm sm:text-base">
@@ -45,10 +44,8 @@ const StudentsSingle = () => {
         </Link>
       </div>
 
-      {/* MAIN */}
       <div className="flex flex-col lg:flex-row gap-6 p-4 sm:p-6 mt-6">
 
-        {/* LEFT CARD */}
         <div className="bg-white rounded-xl shadow p-4 sm:p-6 w-full lg:w-1/3 flex flex-col items-center">
           <img
             className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover mb-4"
@@ -60,12 +57,7 @@ const StudentsSingle = () => {
             {student.FirstName} {student.LastName}
           </h2>
 
-          <p className="text-gray-500 text-sm sm:text-base mt-1">
-            {student.Profession}
-          </p>
-
-          {/* INFO */}
-          <div className="w-full mt-4 space-y-2 text-sm sm:text-base">
+                    <div className="w-full mt-4 space-y-2 text-sm sm:text-base">
             <div className="flex justify-between">
               <span className="font-semibold">Age:</span>
               <span className="font-semibold">{student.Age}</span>
@@ -77,7 +69,6 @@ const StudentsSingle = () => {
             </div>
           </div>
 
-          {/* RATING BAR */}
           <div className="w-full bg-gray-200 rounded-full h-2 mt-3">
             <div
               className="h-2 bg-black rounded-full transition-all"
@@ -85,7 +76,6 @@ const StudentsSingle = () => {
             />
           </div>
 
-          {/* COINS */}
           <div className="w-full mt-4">
             <div className="flex justify-between font-semibold text-sm sm:text-base">
               <span>Coins</span>
@@ -105,7 +95,6 @@ const StudentsSingle = () => {
           </button>
         </div>
 
-        {/* RIGHT CARD */}
         <div className="bg-white rounded-xl shadow p-4 sm:p-6 w-full lg:w-2/3">
           <h3 className="font-semibold text-base sm:text-lg mb-4">
             Contact Info
@@ -113,7 +102,6 @@ const StudentsSingle = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-            {/* PHONE */}
             <div className="flex items-start gap-3 p-3 sm:p-4 bg-gray-50 rounded-xl">
               <span className="text-xl">📞</span>
               <div>
@@ -122,7 +110,6 @@ const StudentsSingle = () => {
               </div>
             </div>
 
-            {/* EMAIL */}
             <div className="flex items-start gap-3 p-3 sm:p-4 bg-gray-50 rounded-xl">
               <span className="text-xl">📧</span>
               <div>
@@ -131,7 +118,6 @@ const StudentsSingle = () => {
               </div>
             </div>
 
-            {/* TELEGRAM */}
             <div className="flex items-start gap-3 p-3 sm:p-4 bg-gray-50 rounded-xl">
               <span className="text-xl">📨</span>
               <div>
@@ -142,7 +128,6 @@ const StudentsSingle = () => {
               </div>
             </div>
 
-            {/* LINKEDIN */}
             <div className="flex items-start gap-3 p-3 sm:p-4 bg-gray-50 rounded-xl">
               <span className="text-xl">🔗</span>
               <div>
