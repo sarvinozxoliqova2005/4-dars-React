@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 
 const TeacherCard = ({id , avatar , FirstName , LastName , Profession , Age , Rating , Phone , Email , Telegram , Linkedin , deleteTeachers , setOpenModal , setSelected , edit}) => {
   return (
-     <div key={id} className='max-w-[400px] w-full rounded-lg border-3 border-[white] shadow p-5 group hover:scale-105 duration-500'>
+     <div key={id} className="w-full rounded-lg border-2 border-white
+           shadow-xl p-5 hover:scale-105 duration-300">
             <Link to={`/teachers/${id}`}>
               <img className='w-28 h-28 mx-auto object-cover rounded-full' src={avatar} alt="" />
               <h1 className='text-center mt-3 font-semibold text-lg'>{FirstName} {LastName}</h1>

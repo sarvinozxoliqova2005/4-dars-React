@@ -1,11 +1,11 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
 const StudentsSingle = () => {
   const { id } = useParams();
-  const [students, setStudent] = useState(null);
-  const [loading, setLoading] = useState(true); 
+  const [student, setStudent] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getStudent() {
@@ -14,124 +14,142 @@ const StudentsSingle = () => {
           `https://6921d8fe512fb4140be18e4b.mockapi.io/Students/${id}`
         );
         setStudent(res.data);
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        console.log(error);
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     }
     getStudent();
   }, [id]);
 
-
   if (loading) {
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <img 
-        src="https://cdn.dribbble.com/userupload/42153336/file/original-47d79aeef2b6c2f3d94914d2ecfda559.gif" 
-        alt="loading" 
-        className="w-60 h-60 object-contain"
-      />
-    </div>
-  );
-}
+    return (
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <img
+          src="https://cdn.dribbble.com/userupload/42153336/file/original-47d79aeef2b6c2f3d94914d2ecfda559.gif"
+          alt="loading"
+          className="w-40 sm:w-60"
+        />
+      </div>
+    );
+  }
+
   return (
     <>
-      <div className='flex items-center gap-3 pl-5 pt-5'>
-        <img className='w-5' src="https://svgx.ru/svg/2423347.svg" alt="" />
-        <Link to="/students" className="hover:underline cursor-pointer">
-          <h1>Back To Students</h1>
+      {/* BACK */}
+      <div className="flex items-center gap-2 px-4 pt-4">
+        <img className="w-5" src="https://svgx.ru/svg/2423347.svg" alt="" />
+        <Link to="/students" className="hover:underline text-sm sm:text-base">
+          Back To Students
         </Link>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-6 p-6 mt-10">
-        <div className="bg-white rounded-xl shadow p-6 w-full md:w-1/3 flex flex-col items-center">
+      {/* MAIN */}
+      <div className="flex flex-col lg:flex-row gap-6 p-4 sm:p-6 mt-6">
+
+        {/* LEFT CARD */}
+        <div className="bg-white rounded-xl shadow p-4 sm:p-6 w-full lg:w-1/3 flex flex-col items-center">
           <img
-            className="w-28 h-28 rounded-full object-cover mb-4"
-            src={students.avatar}
-            alt={`${students.FirstName} ${students.LastName}`}
+            className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover mb-4"
+            src={student.avatar}
+            alt={`${student.FirstName} ${student.LastName}`}
           />
 
-          <h2 className="font-semibold text-lg">
-            {students.FirstName} {students.LastName}
+          <h2 className="font-semibold text-base sm:text-lg text-center">
+            {student.FirstName} {student.LastName}
           </h2>
 
-          <p className="text-gray-500 mt-1">{students.Profession}</p>
+          <p className="text-gray-500 text-sm sm:text-base mt-1">
+            {student.Profession}
+          </p>
 
-          <div className="w-full mt-2 text-gray-600 text-sm flex justify-between">
-            <span className='font-bold text-[18px]'>Age: </span>
-            <span className='text-[18px] font-bold'>{students.Age}</span>
+          {/* INFO */}
+          <div className="w-full mt-4 space-y-2 text-sm sm:text-base">
+            <div className="flex justify-between">
+              <span className="font-semibold">Age:</span>
+              <span className="font-semibold">{student.Age}</span>
+            </div>
+
+            <div className="flex justify-between">
+              <span className="font-semibold">Rating:</span>
+              <span className="font-semibold">{student.Rating}</span>
+            </div>
           </div>
 
-          <div className="flex justify-between w-full mt-2 text-gray-600 text-sm">
-          </div>
-       <div className="flex items-center justify-between w-full gap-2 mt-3">
-  <span className='font-bold text-[18px]'>Rating:</span>
-  <span className='font-bold text-[18px]'>{students.Rating}</span>
-</div>
-
-          <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+          {/* RATING BAR */}
+          <div className="w-full bg-gray-200 rounded-full h-2 mt-3">
             <div
-              className="h-2 bg-black rounded-full"
-              style={{ width: `${students.Rating }%` }}
-            ></div>
+              className="h-2 bg-black rounded-full transition-all"
+              style={{ width: `${student.Rating}%` }}
+            />
           </div>
 
-         <div className="flex justify-between items-end w-full mt-6">
-          <span className='font-bold text-[18px]'>Coins</span>
-          <span className='font-bold text-[18px]'>{students.Coins}</span>
-        </div>
+          {/* COINS */}
+          <div className="w-full mt-4">
+            <div className="flex justify-between font-semibold text-sm sm:text-base">
+              <span>Coins</span>
+              <span>{student.Coins}</span>
+            </div>
 
-       <div className="mt-2 w-full space-y-2 text-gray-700">
-        <div className="h-2 bg-gray-200 rounded-full">
-         <div className="h-full bg-black rounded-full" style={{ width: `${students.Coins}%` }} ></div>
-       </div>
-     </div>
+            <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <div
+                className="h-2 bg-black rounded-full transition-all"
+                style={{ width: `${student.Coins}%` }}
+              />
+            </div>
+          </div>
 
-
-          <button className="mt-4 w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition">
+          <button className="mt-4 w-full bg-black text-white py-2 rounded-lg hover:bg-gray-900 transition text-sm sm:text-base">
             Edit Profile
           </button>
         </div>
 
-        <div className="bg-white rounded-xl shadow p-6 w-full md:w-2/3 flex flex-col gap-4">
-          <h3 className="font-semibold mb-2">Contact Info</h3>
+        {/* RIGHT CARD */}
+        <div className="bg-white rounded-xl shadow p-4 sm:p-6 w-full lg:w-2/3">
+          <h3 className="font-semibold text-base sm:text-lg mb-4">
+            Contact Info
+          </h3>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-            <div className="flex flex-col gap-3">
-              <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-xl">
-                <span className="text-blue-600 text-xl">📞</span>
-                <div>
-                  <p className="font-semibold">Phone</p>
-                  <p className="text-gray-600">{students.Phone}</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-xl">
-                <span className="text-blue-500 text-xl">📨</span>
-                <div>
-                  <p className="font-semibold">Telegram</p>
-                  <p className="text-gray-600">@{students.Telegram}</p>
-                </div>
+            {/* PHONE */}
+            <div className="flex items-start gap-3 p-3 sm:p-4 bg-gray-50 rounded-xl">
+              <span className="text-xl">📞</span>
+              <div>
+                <p className="font-semibold text-sm sm:text-base">Phone</p>
+                <p className="text-gray-600 text-sm">{student.Phone}</p>
               </div>
             </div>
 
-            <div className="flex flex-col gap-3">
-              <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-xl">
-                <span className="text-green-600 text-xl">📧</span>
-                <div>
-                  <p className="font-semibold">Email</p>
-                  <p className="text-gray-600">{students.Email}</p>
-                </div>
+            {/* EMAIL */}
+            <div className="flex items-start gap-3 p-3 sm:p-4 bg-gray-50 rounded-xl">
+              <span className="text-xl">📧</span>
+              <div>
+                <p className="font-semibold text-sm sm:text-base">Email</p>
+                <p className="text-gray-600 text-sm">{student.Email}</p>
               </div>
+            </div>
 
-              <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-xl">
-                <span className="text-blue-700 text-xl">🔗</span>
-                <div>
-                  <p className="font-semibold">LinkedIn</p>
-                  <p className="text-gray-600">{students.Linkedin}</p>
-                </div>
+            {/* TELEGRAM */}
+            <div className="flex items-start gap-3 p-3 sm:p-4 bg-gray-50 rounded-xl">
+              <span className="text-xl">📨</span>
+              <div>
+                <p className="font-semibold text-sm sm:text-base">Telegram</p>
+                <p className="text-gray-600 text-sm">
+                  @{student.Telegram}
+                </p>
+              </div>
+            </div>
+
+            {/* LINKEDIN */}
+            <div className="flex items-start gap-3 p-3 sm:p-4 bg-gray-50 rounded-xl">
+              <span className="text-xl">🔗</span>
+              <div>
+                <p className="font-semibold text-sm sm:text-base">LinkedIn</p>
+                <p className="text-gray-600 text-sm">
+                  {student.Linkedin}
+                </p>
               </div>
             </div>
 

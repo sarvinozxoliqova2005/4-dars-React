@@ -154,8 +154,8 @@ teachers.filter(s => s.Age > 18);
 
   return (
     <div>
-     <div className='flex flex-col sm:flex-row items-center justify-between w-full px-4 sm:px-6'>
-  <form onChange={(e) => setSearch(e.target.value)} className="w-full sm:max-w-[400px] mb-4 sm:mb-0">
+            <div className="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between px-4">
+  <form onChange={(e) => setSearch(e.target.value)} className="w-full sm:max-w-lg">
     <label htmlFor="search" className="sr-only">Search</label>
     <div className="relative">
       <div className="absolute inset-y-0 left-0 flex items-center ps-3 pointer-events-none">
@@ -174,7 +174,7 @@ teachers.filter(s => s.Age > 18);
 
 <button 
     onClick={() => {setOpenModal(true) , resetForm()}} 
-    className='bg-blue-500 text-white text-[20px] max-w-[200px] w-full h-[50px] cursor-pointer px-3 rounded-xl font-bold mr-5'
+  className="bg-blue-500 text-white text-lg w-full sm:max-w-[200px] h-[50px] px-3 rounded-xl font-bold"
   >
     + Add Teachers
   </button>
@@ -311,8 +311,7 @@ teachers.filter(s => s.Age > 18);
   }
     </div>
 
-    <div className='grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-5 p-5 container mx-auto'>
-  
+     <div className="grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4  gap-5  p-4 ">  
     {teachers.map((el) => (
   <TeacherCard key={el.id} {...el} edit={edit} setSelected={setSelected} setOpenModal={setOpenModal} deleteTeachers={deleteTeachers} />
 ))}

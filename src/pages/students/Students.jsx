@@ -136,8 +136,8 @@ students.filter(s => s.Age <= 18);
 
   return (
     <div>
-      <div className='flex items-center justify-between'>
-        <form className="max-w-lg w-full ml-6">
+      <div className="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between px-4">
+        <form className="w-full sm:max-w-lg">
           <label htmlFor="search" className="sr-only">Search</label>
           <div className="relative">
             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -149,12 +149,10 @@ students.filter(s => s.Age <= 18);
           </div>
         </form>
 
-        <button 
-          onClick={() => { resetForm(), setOpenModal(true); }}
-          className='bg-blue-500 text-white text-[20px] max-w-[200px] w-full h-[50px] cursor-pointer px-3 rounded-xl font-bold mr-5'
-        >
+        <button  onClick={() => { resetForm(); setOpenModal(true); }} className="bg-blue-500 text-white text-lg w-full sm:max-w-[200px] h-[50px] px-3 rounded-xl font-bold">
           + Add Students
-        </button>
+      </button>
+
       </div>
 
       {openModal && (
@@ -192,9 +190,10 @@ students.filter(s => s.Age <= 18);
         </div>
       )}
 
-      <div className="grid grid-cols-4 gap-5 p-5 container mx-auto">
+     <div className="grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4  gap-5  p-4 ">
         {students.map((el) => (
-          <div key={el.id} className="max-w-[400px] w-full rounded-lg border-2 border-white shadow p-5 hover:scale-105 duration-500 cursor-pointer">
+          <div key={el.id} className="w-full rounded-lg border-2 border-white
+           shadow-xl p-5 hover:scale-105 duration-300">
             <Link to={`/students/${el.id}`}>
               <img className="w-28 h-28 mx-auto object-cover rounded-full" src={el.avatar} alt="" />
               <h1 className="text-center mt-3 font-semibold text-lg">{el.FirstName} {el.LastName}</h1>
