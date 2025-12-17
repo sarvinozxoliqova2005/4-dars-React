@@ -56,23 +56,30 @@ const TeachersSingle = () => {
     <p className="text-gray-500 mt-1">{teacher.Profession}</p>
 
        <div className="w-full mt-2 text-gray-600 text-sm flex justify-between">
-        <span>Age: {teacher.Age}</span>
-        <span>Experience: {teacher.Experience}</span>
+        <span className='font-bold text-[18px]'>Age:</span>
+        <span className='font-bold text-[18px]'>{teacher.Age}</span>
       </div>
-
+       
+       <div className="w-full mt-2 text-gray-600 text-sm flex justify-between">
+          <span className='font-bold text-[18px]'>Experience:</span>
+          <span className='font-bold text-[18px]'>{teacher.Experience}</span>
+       </div>
 
     <div className="flex justify-between w-full mt-2 text-gray-600 text-sm">
-      <span>Gender: {teacher.Gender}</span>
       <span className="flex items-center gap-1">
-        <span className="text-yellow-400">★</span> {teacher.Rating || 0}
       </span>
     </div>
+       <div className="flex items-center justify-between w-full gap-2">
+  <span className='font-bold text-[18px]'>Rating:</span>
+  <span className='font-bold text-[18px]'>{teacher.Rating}</span>
+</div>
 
     <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
       <div
         className="h-2 bg-black rounded-full"
-        style={{ width: `${teacher.Rating || 0}%` }}
+        style={{ width: `${teacher.Rating}%` }}
       ></div>
+    
     </div>
 
     <button className="mt-4 w-full bg-black text-white py-2 rounded-lg hover:bg-gray-900 transition">

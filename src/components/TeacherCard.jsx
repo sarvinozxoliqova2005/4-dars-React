@@ -52,8 +52,7 @@ const TeacherCard = ({id , avatar , FirstName , LastName , Profession , Age , Ra
                  Delete
                </button>
              </div> */}
-       <div className="flex justify-center gap-4 mt-4 opacity-0 translate-y-4
-                group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+       <div className="flex justify-center gap-4 mt-4 ">
          <button
              onClick={() => {setOpenModal(true) , setSelected (id) , edit(id)}} className="text-blue-600 border border-blue-500 cursor-pointer rounded-md px-3">
              Edit

@@ -59,27 +59,27 @@ const StudentsSingle = () => {
           <p className="text-gray-500 mt-1">{students.Profession}</p>
 
           <div className="w-full mt-2 text-gray-600 text-sm flex justify-between">
-            <span>Age: {students.Age}</span>
-            <span>Experience: {students.Experience}</span>
+            <span className='font-bold text-[18px]'>Age: </span>
+            <span className='text-[18px] font-bold'>{students.Age}</span>
           </div>
 
           <div className="flex justify-between w-full mt-2 text-gray-600 text-sm">
-            <span>Gender: {students.Gender}</span>
-            <span className="flex items-center gap-1">
-              <span className="text-yellow-400">★</span> {students.Rating || 0}
-            </span>
           </div>
+       <div className="flex items-center justify-between w-full gap-2 mt-3">
+  <span className='font-bold text-[18px]'>Rating:</span>
+  <span className='font-bold text-[18px]'>{students.Rating}</span>
+</div>
 
           <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
             <div
               className="h-2 bg-black rounded-full"
-              style={{ width: `${students.Rating || 0}%` }}
+              style={{ width: `${students.Rating }%` }}
             ></div>
           </div>
 
          <div className="flex justify-between items-end w-full mt-6">
-          <span>Coins</span>
-          <span>{students.Coins}</span>
+          <span className='font-bold text-[18px]'>Coins</span>
+          <span className='font-bold text-[18px]'>{students.Coins}</span>
         </div>
 
        <div className="mt-2 w-full space-y-2 text-gray-700">

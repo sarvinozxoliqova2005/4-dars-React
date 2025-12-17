@@ -1,14 +1,19 @@
-import React from "react";
+import { useState } from "react";
 import { Outlet } from "react-router-dom";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "./Sidebar";
 
 const Layout = () => {
-  return (
-    <div className="flex ">
-      <Sidebar />
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
-    
-      <main className="flex-1  pl-[370px] pt-5 ">
+  return (
+    <div className="flex">
+      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+
+      <main
+        className={`flex-1 duration-500 pt-5 ${
+          sidebarOpen ? "pl-[350px]" : "pl-[100px]"
+        }`}
+      >
         <Outlet />
       </main>
     </div>

@@ -22,6 +22,8 @@ const Students = () => {
   const [teacherId, setTeacherId] = useState("");
   const [selected, setSelected] = useState(null);
 
+
+
   useEffect(() => {
     async function getTeachers() {
       try {
@@ -118,7 +120,7 @@ const Students = () => {
     }
   };
 
-  const filteredStudents = students.filter(s => s.Age < 18);
+students.filter(s => s.Age <= 18);
 
   if (loading) {
     return (
@@ -135,7 +137,7 @@ const Students = () => {
   return (
     <div>
       <div className='flex items-center justify-between'>
-        <form className="max-w-lg w-full mb-5">
+        <form className="max-w-lg w-full ml-6">
           <label htmlFor="search" className="sr-only">Search</label>
           <div className="relative">
             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -148,7 +150,7 @@ const Students = () => {
         </form>
 
         <button 
-          onClick={() => { resetForm(); setOpenModal(true); }}
+          onClick={() => { resetForm(), setOpenModal(true); }}
           className='bg-blue-500 text-white text-[20px] max-w-[200px] w-full h-[50px] cursor-pointer px-3 rounded-xl font-bold mr-5'
         >
           + Add Students
@@ -169,7 +171,7 @@ const Students = () => {
               <input value={Age} onChange={(e) => setAge(e.target.value)} required type="number" placeholder="Age" className="block w-full p-3 rounded-lg bg-neutral-secondary-medium font-bold border-2 border-default-medium text-heading text-md focus:ring-brand focus:border-brand shadow-xl" />
               <input value={Rating} onChange={(e) => setRating(e.target.value)} required type="number" placeholder="Rating" className="block w-full p-3 rounded-lg bg-neutral-secondary-medium font-bold border-2 border-default-medium text-heading text-md focus:ring-brand focus:border-brand shadow-xl" />
               <div className='flex items-center gap-3'>
-                <input value={Phone} onChange={(e) => setPhone(e.target.value)} required type="number" placeholder="Phone number" className="block w-full p-3 rounded-lg bg-neutral-secondary-medium font-bold border-2 border-default-medium text-heading text-md focus:ring-brand focus:border-brand shadow-xl" />
+                <input value={Phone} onChange={(e) => setPhone(e.target.value)} required type="text" placeholder="Phone number" className="block w-full p-3 rounded-lg bg-neutral-secondary-medium font-bold border-2 border-default-medium text-heading text-md focus:ring-brand focus:border-brand shadow-xl" />
                 <input value={Email} onChange={(e) => setEmail(e.target.value)} required type="email" placeholder="Email" className="block w-full p-3 rounded-lg bg-neutral-secondary-medium font-bold border-2 border-default-medium text-heading text-md focus:ring-brand focus:border-brand shadow-xl" />
               </div>
               <div className='flex items-center gap-3'>
@@ -177,7 +179,7 @@ const Students = () => {
                 <input value={Linkedin} onChange={(e) => setLinkedin(e.target.value)} required type="text" placeholder="Linkedin" className="block w-full p-3 rounded-lg bg-neutral-secondary-medium font-bold border-2 border-default-medium text-heading text-md focus:ring-brand focus:border-brand shadow-xl" />
               </div>
               <select value={teacherId} onChange={(e) => setTeacherId(e.target.value)} className="block w-full p-3 rounded-lg bg-neutral-secondary-medium font-bold border-2 border-default-medium text-heading text-md focus:ring-brand focus:border-brand shadow-xl">
-                <option value="">Select Teacher</option>
+                <option value="">All Teachers</option>
                 {teachers.map((el) => <option key={el.id} value={el.id}>{el.FirstName}</option>)}
               </select>
 
@@ -191,8 +193,8 @@ const Students = () => {
       )}
 
       <div className="grid grid-cols-4 gap-5 p-5 container mx-auto">
-        {filteredStudents.map((el) => (
-          <div key={el.id} className="max-w-[400px] w-full rounded-lg border-2 border-white shadow p-5 hover:scale-105 duration-500 cursor-pointer group">
+        {students.map((el) => (
+          <div key={el.id} className="max-w-[400px] w-full rounded-lg border-2 border-white shadow p-5 hover:scale-105 duration-500 cursor-pointer">
             <Link to={`/students/${el.id}`}>
               <img className="w-28 h-28 mx-auto object-cover rounded-full" src={el.avatar} alt="" />
               <h1 className="text-center mt-3 font-semibold text-lg">{el.FirstName} {el.LastName}</h1>
@@ -220,10 +222,20 @@ const Students = () => {
               </div>
             </Link>
 
-            <div className="flex justify-center gap-4 mt-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-              <button onClick={() => edit(el.id)} className="text-blue-600 border border-blue-500 cursor-pointer rounded-md px-3">Edit</button>
-              <button className="text-red-600 border border-red-500 cursor-pointer rounded-md px-3">Delete</button>
-            </div>
+           <div className="flex justify-center gap-4 mt-4 transition-all duration-300">
+  <button
+    onClick={() => edit(el.id)}
+    className="text-blue-600 border border-blue-500 cursor-pointer rounded-md px-3"
+  >
+    Edit
+  </button>
+  <button
+    className="text-red-600 border border-red-500 cursor-pointer rounded-md px-3"
+  >
+    Delete
+  </button>
+</div>
+
           </div>
         ))}
       </div>
@@ -232,3 +244,4 @@ const Students = () => {
 };
 
 export default Students;
+

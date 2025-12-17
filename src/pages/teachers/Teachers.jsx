@@ -137,7 +137,7 @@ async function edit(id) {
 }
 
 
-  const filteredTeachers = teachers.filter(t => t.Age >= 18);
+teachers.filter(s => s.Age > 18);
 
   if (loading) {
     return (
@@ -154,18 +154,23 @@ async function edit(id) {
 
   return (
     <div>
-      <div className='flex items-center justify-between'>
-        <form onChange={(e) => setSearch(e.target.value)} className="max-w-[400px] w-full ml-5">   
-        <label htmlFor="search" className="block mb-2.5 text-sm font-medium text-heading sr-only">Search</label>
-        <div className="relative">
-          <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-            <svg className="w-4 h-4 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-              <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
-            </svg>
-          </div>
-          <input type="search" id="search" className="block w-full p-3 ps-9 rounded-lg bg-neutral-secondary-medium font-bold border-2 border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body" placeholder="Search Teachers..." required />
-        </div>
-      </form>
+     <div className='flex flex-col sm:flex-row items-center justify-between w-full px-4 sm:px-6'>
+  <form onChange={(e) => setSearch(e.target.value)} className="w-full sm:max-w-[400px] mb-4 sm:mb-0">
+    <label htmlFor="search" className="sr-only">Search</label>
+    <div className="relative">
+      <div className="absolute inset-y-0 left-0 flex items-center ps-3 pointer-events-none">
+        <svg className="w-4 h-4 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeWidth="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
+        </svg>
+      </div>
+      <input 
+        type="search" 
+        id="search" 
+        className="block w-full p-3 pl-9 rounded-lg bg-neutral-secondary-medium font-bold border-2 border-default-medium text-heading text-sm focus:ring-brand focus:border-brand shadow-xs placeholder:text-body" 
+        placeholder="Search Teachers..." 
+      />
+    </div>
+  </form>
 
 <button 
     onClick={() => {setOpenModal(true) , resetForm()}} 
@@ -253,7 +258,7 @@ async function edit(id) {
             value={Phone}
             onChange={(e) => setPhone(e.target.value)}
               required
-              type="number"
+              type="text"
               placeholder="Phone number"
               className="block w-full p-3 rounded-lg bg-neutral-secondary-medium font-bold border-2 border-default-medium text-heading text-md focus:ring-brand focus:border-brand shadow-xl"
             />
@@ -308,7 +313,7 @@ async function edit(id) {
 
     <div className='grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-5 p-5 container mx-auto'>
   
-    {filteredTeachers.map((el) => (
+    {teachers.map((el) => (
   <TeacherCard key={el.id} {...el} edit={edit} setSelected={setSelected} setOpenModal={setOpenModal} deleteTeachers={deleteTeachers} />
 ))}
 
