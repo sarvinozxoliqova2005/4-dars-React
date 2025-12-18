@@ -143,9 +143,10 @@ teachers.filter(s => s.Age > 18);
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <img 
-          src="https://cdn.dribbble.com/userupload/42153336/file/original-47d79aeef2b6c2f3d94914d2ecfda559.gif" 
+          src="https://cdn.dribbble.com/userupload/21446739/file/original-9c053cb720609e39db687f476ed998a4.gif" 
           alt="loading" 
-          className="w-60 h-60 object-contain"
+            style={{ width: '1400px', height: '1400px' }}
+          className="w-200 h-200 object-contain"
         />
       </div>
     );
